@@ -10,7 +10,7 @@ const artApi = axios.create({
   baseURL: "https://collectionapi.metmuseum.org/public/collection/v1/",
 });
 
-export function getScience() {
+export async function getScience() {
   return sciApi
     .get("/objects?q=&page[size]=10")
     .then((response) => {
@@ -22,7 +22,7 @@ export function getScience() {
     });
 }
 
-export function get10ArtIds() {
+export async function get10ArtIds() {
   return artApi
     .get("search?q=&isHighlight=true&hasImages=true")
     .then((response) => {
@@ -36,7 +36,7 @@ export function get10ArtIds() {
     });
 }
 
-export function getArt(id) {
+export async function getArt(id) {
   return artApi
     .get(id)
     .then((response) => {

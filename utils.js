@@ -12,11 +12,10 @@ export function formatExhibitions(exhibitions) {
           .location,
       };
     } else {
-      console.log(exhibition);
       return {
         title: exhibition.title,
         id: exhibition.objectID,
-        description: exhibition.artistDisplayName || "Unknown",
+        artist: exhibition.artistDisplayName,
         img: exhibition.primaryImage,
       };
     }

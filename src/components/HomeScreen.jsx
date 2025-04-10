@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { get10ArtIds, getArt, getScience } from "../../api";
 import { formatExhibitions } from "../../utils";
+import { ExhibitionCard } from "./ExhibitionCard";
+import "./styles/homeScreen.css";
 
 export function HomeScreen() {
   const [exhibitions, setExhibitions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     get10ArtIds()
@@ -16,20 +19,19 @@ export function HomeScreen() {
       })
       .then((res) => {
         setExhibitions(formatExhibitions(res.flat()));
+        setIsLoading(false);
       });
   }, []);
+
+  if (isLoading) {
+    return <h1>Loading ...</h1>;
+  }
 
   return (
     <div>
       <ul>
         {exhibitions.map((exhibition) => {
-          return (
-            <li key={exhibition.id}>
-              <p>{exhibition.title}</p>
-              <p>{exhibition.description}</p>
-              <img src={exhibition.img} width={500} height={500} />
-            </li>
-          );
+          return <ExhibitionCard key={exhibition.id} exhibition={exhibition} />;
         })}
       </ul>
     </div>
