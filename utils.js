@@ -2,6 +2,7 @@ export function formatExhibitions(exhibitions) {
   const formattedExhibiotions = exhibitions.map((exhibition) => {
     if (exhibition.type) {
       return {
+        api: "science",
         title: exhibition.attributes.summary.title,
         id: exhibition.attributes["@admin"].uid,
         description:
@@ -13,6 +14,7 @@ export function formatExhibitions(exhibitions) {
       };
     } else {
       return {
+        api: "art",
         title: exhibition.title,
         id: exhibition.objectID,
         artist: exhibition.artistDisplayName,
@@ -20,5 +22,6 @@ export function formatExhibitions(exhibitions) {
       };
     }
   });
+
   return formattedExhibiotions;
 }

@@ -10,23 +10,25 @@ const artApi = axios.create({
   baseURL: "https://collectionapi.metmuseum.org/public/collection/v1/",
 });
 
-export async function getScience() {
+export async function getScience(page) {
   return sciApi
-    .get("/objects?q=&page[size]=10")
+    .get(`/objects?q=&page[size]=10&page[number]=${page}`)
     .then((response) => {
       return response.data.data;
-      // response.data.data[0].attributes.multimedia[0]["@processed"].large_thumbnail.location;
     })
     .catch((err) => {
       console.log("getScience", err);
     });
 }
 
-export async function get10ArtIds() {
+export async function get10ArtIds(page) {
+  const pageStart = (Number(page) - 1) * 10;
+  const pageEnd = pageStart + 10;
+
   return artApi
-    .get("search?q=&isHighlight=true&hasImages=true")
+    .get("/search?hasImages=true&isHighlight=true&q=a")
     .then((response) => {
-      const tenResponse = response.data.objectIDs.slice(0, 10);
+      const tenResponse = response.data.objectIDs.slice(pageStart, pageEnd);
       return tenResponse.map((id) => {
         return `objects/${id}`;
       });
