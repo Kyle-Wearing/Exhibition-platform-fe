@@ -46,6 +46,8 @@ export async function getArt(id) {
     })
     .catch((err) => {
       console.log("getArt", err);
-      return { title: "Oops Something went wrong" };
+      return {
+        title: "Oops Something went wrong",
+      };
     });
 }
