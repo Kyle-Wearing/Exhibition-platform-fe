@@ -1,8 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import "./styles/exhibitionCard.css";
 
 export function ExhibitionCard({ exhibition }) {
+  const navigate = useNavigate();
   return (
-    <li>
+    <li
+      onClick={() => {
+        navigate(`/exhibitions/${exhibition.api}/${exhibition.id}`);
+      }}
+    >
       <h3>{exhibition.title}</h3>
       <img
         src={

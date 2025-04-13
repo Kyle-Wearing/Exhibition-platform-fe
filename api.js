@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const sciApi = axios.create({
-  baseURL: "https://collection.sciencemuseumgroup.org.uk/search",
+  baseURL: "https://collection.sciencemuseumgroup.org.uk",
   timeout: 10000,
   headers: { Accept: "application/json" },
 });
@@ -12,12 +12,24 @@ const artApi = axios.create({
 
 export async function getScience(page) {
   return sciApi
-    .get(`/objects?q=&page[size]=10&page[number]=${page}`)
+    .get(`search/objects?q=&page[size]=10&page[number]=${page}`)
     .then((response) => {
       return response.data.data;
     })
     .catch((err) => {
       console.log("getScience", err);
+    });
+}
+
+export async function getSingleScience(id) {
+  return sciApi
+    .get(`/objects/${id}`)
+    .then((response) => {
+      console.log(response);
+      return response.data.data;
+    })
+    .catch((err) => {
+      console.log("getSingleScience", err);
     });
 }
 
