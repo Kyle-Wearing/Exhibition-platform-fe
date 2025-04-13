@@ -1,0 +1,24 @@
+.control-bar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.control-button {
+  padding: 8px 16px;
+  margin: 2px;
+  background-color: #003cff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.control-button:hover {
+  background-color: #007bff;
+}
+.control-button:disabled {
+  background-color: #007bff90;
+}
