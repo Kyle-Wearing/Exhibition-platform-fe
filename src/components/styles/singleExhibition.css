@@ -30,6 +30,8 @@
 }
 
 .exhibition-card p {
+  justify-self: center;
+  width: 90%;
   font-size: 1rem;
   color: #444;
 }
