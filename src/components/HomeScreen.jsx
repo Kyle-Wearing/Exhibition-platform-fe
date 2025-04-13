@@ -4,6 +4,7 @@ import { formatExhibitions } from "../../utils";
 import { ExhibitionCard } from "./ExhibitionCard";
 import "./styles/homeScreen.css";
 import { useSearchParams } from "react-router-dom";
+import { ControlBar } from "./ControlBar";
 
 export function HomeScreen() {
   const [exhibitions, setExhibitions] = useState([]);
@@ -12,6 +13,7 @@ export function HomeScreen() {
 
   const page = searchParams.get("page");
   useEffect(() => {
+    setIsLoading(true);
     get10ArtIds(page)
       .then((response) => {
         const promiseArr = response.map((id) => {
@@ -26,17 +28,24 @@ export function HomeScreen() {
       });
   }, [searchParams]);
 
-  if (isLoading) {
-    return <h1>Loading ...</h1>;
-  }
-
   return (
-    <div>
-      <ul>
-        {exhibitions.map((exhibition) => {
-          return <ExhibitionCard key={exhibition.id} exhibition={exhibition} />;
-        })}
-      </ul>
-    </div>
+    <>
+      <ControlBar
+        isLoading={isLoading}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+      />
+      {!isLoading ? (
+        <ul>
+          {exhibitions.map((exhibition) => {
+            return (
+              <ExhibitionCard key={exhibition.id} exhibition={exhibition} />
+            );
+          })}
+        </ul>
+      ) : (
+        <h1>Loading</h1>
+      )}
+    </>
   );
 }
