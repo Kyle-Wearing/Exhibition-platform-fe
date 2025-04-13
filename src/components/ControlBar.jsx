@@ -1,8 +1,11 @@
+import "./styles/ControlBar.css";
+
 export function ControlBar({ searchParams, setSearchParams, isLoading }) {
   const page = searchParams.get("page");
   return (
-    <>
+    <div className="control-bar">
       <button
+        className="control-button"
         disabled={isLoading || page === "1"}
         onClick={() => {
           const newParams = new URLSearchParams(searchParams);
@@ -13,6 +16,7 @@ export function ControlBar({ searchParams, setSearchParams, isLoading }) {
         Prev
       </button>
       <button
+        className="control-button"
         disabled={isLoading}
         onClick={() => {
           const page = searchParams.get("page");
@@ -23,6 +27,6 @@ export function ControlBar({ searchParams, setSearchParams, isLoading }) {
       >
         Next
       </button>
-    </>
+    </div>
   );
 }

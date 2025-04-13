@@ -5,6 +5,7 @@ import { ExhibitionCard } from "./ExhibitionCard";
 import "./styles/homeScreen.css";
 import { useSearchParams } from "react-router-dom";
 import { ControlBar } from "./ControlBar";
+import { Loading } from "./Loading";
 
 export function HomeScreen() {
   const [exhibitions, setExhibitions] = useState([]);
@@ -44,7 +45,7 @@ export function HomeScreen() {
           })}
         </ul>
       ) : (
-        <h1>Loading</h1>
+        <Loading />
       )}
     </>
   );
