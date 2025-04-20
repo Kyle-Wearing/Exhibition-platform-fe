@@ -13,14 +13,15 @@ export function HomeScreen() {
   const [searchParams, setSearchParams] = useSearchParams("page=1");
 
   const page = searchParams.get("page");
+  const searchTerm = searchParams.get("searchTerm");
   useEffect(() => {
     setIsLoading(true);
-    get10ArtIds(page)
+    get10ArtIds(page, searchTerm)
       .then((response) => {
         const promiseArr = response.map((id) => {
           return getArt(id);
         });
-        promiseArr.push(getScience(page));
+        promiseArr.push(getScience(page, searchTerm));
         return Promise.all(promiseArr);
       })
       .then((res) => {
