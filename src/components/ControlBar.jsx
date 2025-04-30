@@ -1,9 +1,32 @@
+import { useState } from "react";
 import "./styles/ControlBar.css";
 
 export function ControlBar({ searchParams, setSearchParams, isLoading }) {
   const page = searchParams.get("page");
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("searchTerm", searchTerm);
+    setSearchParams(newParams);
+  }
+
   return (
     <div className="control-bar">
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="search">Search</label>
+        <input
+          value={searchTerm}
+          id="search"
+          name="search"
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        ></input>
+      </form>
       <button
         className="control-button"
         disabled={isLoading || page === "1"}

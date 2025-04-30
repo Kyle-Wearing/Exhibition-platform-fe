@@ -10,9 +10,14 @@ const artApi = axios.create({
   baseURL: "https://collectionapi.metmuseum.org/public/collection/v1/",
 });
 
-export async function getScience(page) {
+export async function getScience(page, searchTerm) {
+  let query = `search/objects?page[size]=10&page[number]=${page}`;
+  if (searchTerm) {
+    query += `&q=${searchTerm}`;
+  }
+
   return sciApi
-    .get(`search/objects?q=&page[size]=10&page[number]=${page}`)
+    .get(query)
     .then((response) => {
       return response.data.data;
     })
@@ -33,14 +38,21 @@ export async function getSingleScience(id) {
     });
 }
 
-export async function get10ArtIds(page) {
+export async function get10ArtIds(page, searchTerm) {
   const pageStart = (Number(page) - 1) * 10;
   const pageEnd = pageStart + 10;
 
   return artApi
-    .get("/search?hasImages=true&isHighlight=true&q=a")
+    .get(`/search?hasImages=true&isHighlight=true&q=${searchTerm || "a"}`)
     .then((response) => {
-      const tenResponse = response.data.objectIDs.slice(pageStart, pageEnd);
+      let tenResponse = [];
+      if (response.data.total === 0) {
+        tenResponse = [];
+      } else if (response.data.total < 10) {
+        tenResponse = response.data.objectIDs;
+      } else {
+        tenResponse = response.data.objectIDs.slice(pageStart, pageEnd);
+      }
       return tenResponse.map((id) => {
         return `objects/${id}`;
       });
