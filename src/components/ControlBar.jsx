@@ -17,7 +17,7 @@ export function ControlBar({ searchParams, setSearchParams, isLoading }) {
   return (
     <div className="control-bar">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="search">Search</label>
+        <label htmlFor="search"></label>
         <input
           value={searchTerm}
           id="search"
@@ -26,6 +26,7 @@ export function ControlBar({ searchParams, setSearchParams, isLoading }) {
             setSearchTerm(e.target.value);
           }}
         ></input>
+        <button type="submit">Search</button>
       </form>
       <button
         className="control-button"
