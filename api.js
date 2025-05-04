@@ -93,3 +93,38 @@ export async function userLogin(username, password) {
       console.log("loginUser", err);
     });
 }
+
+export function getCollections(userId) {
+  return backEnd
+    .get(`collections/user/${userId}`)
+    .then((response) => {
+      return response.data.items;
+    })
+    .catch((err) => {
+      console.log("getCollections", err);
+    });
+}
+
+export function createCollection(userId, collectionName) {
+  return backEnd
+    .post(`/collections/user/${userId}`, {
+      collection_name: collectionName,
+    })
+    .then((response) => {
+      console.log("created");
+    })
+    .catch((err) => {
+      console.log("createCollection", err);
+    });
+}
+
+export function getCollectionbyId(collectionId) {
+  return backEnd
+    .get(`/collections/${collectionId}`)
+    .then((response) => {
+      return response.data.items;
+    })
+    .catch((err) => {
+      console.log("getCollectionById", err);
+    });
+}

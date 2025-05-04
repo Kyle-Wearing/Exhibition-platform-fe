@@ -13,6 +13,8 @@ export function HomeScreen() {
   const [searchParams, setSearchParams] = useSearchParams("page=1");
   const navigate = useNavigate();
 
+  const userId = sessionStorage.getItem("user_id");
+
   const page = searchParams.get("page");
   const searchTerm = searchParams.get("searchTerm");
   useEffect(() => {
@@ -33,13 +35,23 @@ export function HomeScreen() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          navigate("/log-in");
-        }}
-      >
-        Log in
-      </button>
+      {!userId ? (
+        <button
+          onClick={() => {
+            navigate("/log-in");
+          }}
+        >
+          Log in
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            navigate(`/profile/${userId}`);
+          }}
+        >
+          Profile
+        </button>
+      )}
       <ControlBar
         isLoading={isLoading}
         searchParams={searchParams}

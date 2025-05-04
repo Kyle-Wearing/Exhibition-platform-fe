@@ -18,6 +18,7 @@ export function LoginPage() {
       userLogin(username, password).then((userId) => {
         if (userId) {
           sessionStorage.setItem("user_id", userId);
+          navigate(-1);
         } else {
           setIsLoading(false);
           setError("username or password incorrect");
