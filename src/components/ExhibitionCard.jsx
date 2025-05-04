@@ -1,13 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles/exhibitionCard.css";
 
 export function ExhibitionCard({ exhibition }) {
-  const navigate = useNavigate();
   return (
-    <li
-      onClick={() => {
-        navigate(`/exhibitions/${exhibition.api}/${exhibition.id}`);
-      }}
+    <Link
+      className="link-card"
+      to={`/exhibitions/${exhibition.api}/${exhibition.id}`}
     >
       <h3>{exhibition.title}</h3>
       <img
@@ -28,6 +26,6 @@ export function ExhibitionCard({ exhibition }) {
           ? `By ${exhibition.artist}`
           : null}
       </p>
-    </li>
+    </Link>
   );
 }
