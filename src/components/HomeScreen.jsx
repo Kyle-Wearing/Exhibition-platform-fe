@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { get10ArtIds, getArt, getScience } from "../../api";
+import { get10ArtIds, getArt, getCollections, getScience } from "../../api";
 import { formatExhibitions } from "../../utils";
 import { ExhibitionCard } from "./ExhibitionCard";
 import "./styles/homeScreen.css";
@@ -11,6 +11,8 @@ export function HomeScreen() {
   const [exhibitions, setExhibitions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams("page=1");
+  const [collections, setCollections] = useState([]);
+
   const navigate = useNavigate();
 
   const userId = sessionStorage.getItem("user_id");
@@ -18,6 +20,11 @@ export function HomeScreen() {
   const page = searchParams.get("page");
   const searchTerm = searchParams.get("searchTerm");
   useEffect(() => {
+    if (userId) {
+      getCollections(userId).then((response) => {
+        setCollections(response);
+      });
+    }
     setIsLoading(true);
     get10ArtIds(page, searchTerm)
       .then((response) => {
@@ -61,7 +68,11 @@ export function HomeScreen() {
         <ul>
           {exhibitions.map((exhibition) => {
             return (
-              <ExhibitionCard key={exhibition.id} exhibition={exhibition} />
+              <ExhibitionCard
+                key={exhibition.id}
+                exhibition={exhibition}
+                collections={collections}
+              />
             );
           })}
         </ul>

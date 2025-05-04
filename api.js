@@ -128,3 +128,24 @@ export function getCollectionbyId(collectionId) {
       console.log("getCollectionById", err);
     });
 }
+
+export function addExhibitionToCollection(
+  collectionId,
+  userId,
+  api,
+  exhibitionId
+) {
+  return backEnd
+    .post(`/collections/${collectionId}`, {
+      user_id: userId,
+      api: api,
+      exhibition_id: exhibitionId,
+    })
+    .then((response) => {
+      return response.data.status;
+    })
+    .catch((err) => {
+      console.log("addToCollection", err);
+      return err.response.status;
+    });
+}

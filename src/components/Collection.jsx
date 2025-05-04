@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { getArt, getCollectionbyId, getSingleScience } from "../../api";
 import { Loading } from "./Loading";
-import { ExhibitionCard } from "./ExhibitionCard";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { formatExhibitions } from "../../utils";
+import { CollectionCard } from "./CollectionCard";
 
 export function Collection() {
   const { collection_id } = useParams();
   const [collection, setCollection] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { collectionName } = location.state;
 
   useEffect(() => {
     setIsLoading(true);
@@ -46,11 +48,12 @@ export function Collection() {
       >
         go back
       </button>
+      <h1 style={{ textAlign: "center" }}>{collectionName}</h1>
       {collection.length ? (
         <ul>
           {collection.map((exhibition) => {
             return (
-              <ExhibitionCard key={exhibition.id} exhibition={exhibition} />
+              <CollectionCard key={exhibition.id} exhibition={exhibition} />
             );
           })}
         </ul>
