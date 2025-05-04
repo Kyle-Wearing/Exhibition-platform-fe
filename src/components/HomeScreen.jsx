@@ -3,7 +3,7 @@ import { get10ArtIds, getArt, getScience } from "../../api";
 import { formatExhibitions } from "../../utils";
 import { ExhibitionCard } from "./ExhibitionCard";
 import "./styles/homeScreen.css";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ControlBar } from "./ControlBar";
 import { Loading } from "./Loading";
 
@@ -11,6 +11,7 @@ export function HomeScreen() {
   const [exhibitions, setExhibitions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams("page=1");
+  const navigate = useNavigate();
 
   const page = searchParams.get("page");
   const searchTerm = searchParams.get("searchTerm");
@@ -32,6 +33,13 @@ export function HomeScreen() {
 
   return (
     <>
+      <button
+        onClick={() => {
+          navigate("/log-in");
+        }}
+      >
+        Log in
+      </button>
       <ControlBar
         isLoading={isLoading}
         searchParams={searchParams}

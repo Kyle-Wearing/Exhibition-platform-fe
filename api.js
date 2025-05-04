@@ -10,6 +10,10 @@ const artApi = axios.create({
   baseURL: "https://collectionapi.metmuseum.org/public/collection/v1/",
 });
 
+const backEnd = axios.create({
+  baseURL: "https://apex.oracle.com/pls/apex/oracleworkspace2/api",
+});
+
 export async function getScience(page, searchTerm) {
   let query = `search/objects?page[size]=10&page[number]=${page}`;
   if (searchTerm) {
@@ -73,5 +77,19 @@ export async function getArt(id) {
       return {
         title: "Oops Something went wrong",
       };
+    });
+}
+
+export async function userLogin(username, password) {
+  return backEnd
+    .post("/login", {
+      username: username,
+      password: password,
+    })
+    .then((response) => {
+      return response.headers.user_id;
+    })
+    .catch((err) => {
+      console.log("loginUser", err);
     });
 }

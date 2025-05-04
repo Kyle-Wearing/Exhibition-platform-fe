@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HomeScreen } from "./components/HomeScreen";
 import { Exhibition } from "./components/Exhibition";
+import { LoginPage } from "./components/LoginPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           path="/exhibitions/:api/:exhibition_id"
           element={<Exhibition />}
         />
+        <Route path="/log-in" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );
