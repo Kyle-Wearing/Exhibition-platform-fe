@@ -70,7 +70,9 @@ export function UserProfile() {
               className="link-card"
               key={collection.collection_id}
               onClick={() =>
-                navigate(`/collections/${collection.collection_id}`)
+                navigate(`/collections/${collection.collection_id}`, {
+                  state: { collectionName: collection.collection_name },
+                })
               }
             >
               <p>{collection.collection_name}</p>
