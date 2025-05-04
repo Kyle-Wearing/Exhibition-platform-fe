@@ -30,6 +30,21 @@ export function UserProfile() {
 
   return (
     <>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Home
+      </button>
+      <button
+        onClick={() => {
+          sessionStorage.removeItem("user_id");
+          navigate("/");
+        }}
+      >
+        Log Out
+      </button>
       <form onSubmit={handleSubmit}>
         <label htmlFor="collection" title="collection">
           New Collection
@@ -50,7 +65,6 @@ export function UserProfile() {
       {error ? <p>{error}</p> : null}
       <ul>
         {collections.map((collection) => {
-          console.log(collection);
           return (
             <li
               className="link-card"

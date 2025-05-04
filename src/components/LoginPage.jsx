@@ -4,8 +4,8 @@ import { Loading } from "./Loading";
 import { userLogin } from "../../api";
 
 export function LoginPage() {
-  const [username, setUsername] = useState("test_user");
-  const [password, setPassword] = useState("secure password");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 

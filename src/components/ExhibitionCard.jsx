@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./styles/exhibitionCard.css";
 
 export function ExhibitionCard({ exhibition }) {
-  const navigate = useNavigate();
   return (
     <Link
       className="link-card"
