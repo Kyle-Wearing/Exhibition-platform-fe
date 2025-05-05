@@ -88,6 +88,7 @@
   height: 24px;
   font-weight: bold;
   cursor: pointer;
+  color: black;
 }
 
 .remove-button:hover {

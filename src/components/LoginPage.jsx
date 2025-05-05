@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "./Loading";
 import { userLogin } from "../../api";
+import "./styles/loginPage.css";
 
 export function LoginPage() {
   const [username, setUsername] = useState("");
@@ -21,11 +22,13 @@ export function LoginPage() {
           navigate(-1);
         } else {
           setIsLoading(false);
-          setError("username or password incorrect");
+          setError("Username or password incorrect");
+          setTimeout(() => setError(""), 3000);
         }
       });
     } else {
-      setError("must enter username and password");
+      setError("Must enter username and password");
+      setTimeout(() => setError(""), 3000);
     }
   }
 
@@ -34,38 +37,40 @@ export function LoginPage() {
   }
 
   return (
-    <>
-      <button
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        home
-      </button>
-      <form onSubmit={handleSubmit}>
-        <label>
-          enter username
-          <input
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-              setError("");
-            }}
-          />
-        </label>
-        <label>
-          enter password
-          <input
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setError("");
-            }}
-          />
-        </label>
-        <button type="submit">log in</button>
-      </form>
-      {error ? <p>{error}</p> : null}
-    </>
+    <div className="login-container">
+      <div className="login-card">
+        <button className="home-button" onClick={() => navigate("/")}>
+          Home
+        </button>
+        <h2 className="login-title">Log In</h2>
+        <form onSubmit={handleSubmit} className="login-form">
+          <label>
+            Username
+            <input
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setError("");
+              }}
+              autoComplete="username"
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError("");
+              }}
+              autoComplete="current-password"
+            />
+          </label>
+          <button type="submit">Log In</button>
+        </form>
+        {error ? <p className="error-message">{error}</p> : null}
+      </div>
+    </div>
   );
 }

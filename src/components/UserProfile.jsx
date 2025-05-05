@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createCollection, getCollections } from "../../api";
 import { useNavigate } from "react-router-dom";
+import "./styles/userProfile.css";
 
 export function UserProfile() {
   const userId = sessionStorage.getItem("user_id");
@@ -20,66 +21,72 @@ export function UserProfile() {
   function handleSubmit(e) {
     e.preventDefault();
     if (input) {
-      setInput("");
-      createCollection(userId, input);
-      setRefresh(true);
+      createCollection(userId, input).then((response) => {
+        setInput("");
+        setRefresh(true);
+      });
     } else {
       setError("Must enter name for collection");
+      setTimeout(() => setError(""), 3000);
     }
   }
 
   return (
-    <>
-      <button
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Home
-      </button>
-      <button
-        onClick={() => {
-          sessionStorage.removeItem("user_id");
-          navigate("/");
-        }}
-      >
-        Log Out
-      </button>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="collection" title="collection">
-          New Collection
-        </label>
+    <div className="profile-container">
+      <div className="profile-header">
+        <button className="nav-button" onClick={() => navigate("/")}>
+          ← Home
+        </button>
+        <button
+          className="nav-button"
+          onClick={() => {
+            sessionStorage.removeItem("user_id");
+            navigate("/");
+          }}
+        >
+          Log Out
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit} className="collection-form">
+        <label htmlFor="collection">New Collection</label>
         <input
           value={input}
           id="collection"
-          title="collection"
           name="collection"
           onChange={(e) => {
             setError("");
             setInput(e.target.value);
           }}
-        ></input>
-
+        />
         <button type="submit">Create</button>
       </form>
-      {error ? <p>{error}</p> : null}
-      <ul>
-        {collections.map((collection) => {
-          return (
-            <li
-              className="link-card"
-              key={collection.collection_id}
-              onClick={() =>
+
+      {error ? <p className="error-message">{error}</p> : null}
+
+      <ul className="collection-list">
+        {collections.map((collection) => (
+          <li
+            tabIndex={0}
+            className="collection-card"
+            key={collection.collection_id}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
                 navigate(`/collections/${collection.collection_id}`, {
                   state: { collectionName: collection.collection_name },
-                })
+                });
               }
-            >
-              <p>{collection.collection_name}</p>
-            </li>
-          );
-        })}
+            }}
+            onClick={() =>
+              navigate(`/collections/${collection.collection_id}`, {
+                state: { collectionName: collection.collection_name },
+              })
+            }
+          >
+            <p>{collection.collection_name}</p>
+          </li>
+        ))}
       </ul>
-    </>
+    </div>
   );
 }

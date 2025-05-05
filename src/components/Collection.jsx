@@ -4,6 +4,7 @@ import { Loading } from "./Loading";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { formatExhibitions } from "../../utils";
 import { CollectionCard } from "./CollectionCard";
+import "./styles/collection.css";
 
 export function Collection() {
   const { collection_id } = useParams();
@@ -20,15 +21,11 @@ export function Collection() {
         response.map((exhibition) => {
           if (exhibition.api === "art") {
             return getArt(`objects/${exhibition.exhibition_id}`).then(
-              (response) => {
-                return formatExhibitions([response])[0];
-              }
+              (response) => formatExhibitions([response])[0]
             );
           } else if (exhibition.api === "science") {
             return getSingleScience(exhibition.exhibition_id).then(
-              (response) => {
-                return formatExhibitions([response])[0];
-              }
+              (response) => formatExhibitions([response])[0]
             );
           }
         })
@@ -40,32 +37,28 @@ export function Collection() {
   }, []);
 
   return !isLoading ? (
-    <>
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        go back
-      </button>
-      <h1 style={{ textAlign: "center" }}>{collectionName}</h1>
+    <div className="collection-container">
+      <div className="collection-header">
+        <button onClick={() => navigate(-1)} className="back-button">
+          ← Go Back
+        </button>
+        <h1>{collectionName}</h1>
+      </div>
       {collection.length ? (
-        <ul>
-          {collection.map((exhibition, index) => {
-            return (
-              <CollectionCard
-                key={exhibition.id}
-                exhibition={exhibition}
-                setCollection={setCollection}
-                index={index}
-              />
-            );
-          })}
+        <ul className="collection-grid">
+          {collection.map((exhibition, index) => (
+            <CollectionCard
+              key={exhibition.id}
+              exhibition={exhibition}
+              setCollection={setCollection}
+              index={index}
+            />
+          ))}
         </ul>
       ) : (
-        <p>Collection is empty</p>
+        <p className="empty-message">Collection is empty</p>
       )}
-    </>
+    </div>
   ) : (
     <Loading />
   );
