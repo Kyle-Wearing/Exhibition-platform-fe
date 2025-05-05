@@ -3,10 +3,13 @@ This is a site that gets exhibitions from The Science Museim and The Metropolita
 To Login
 
 Username: test_user
+
 Password: secure password
 
 Link to hosted site: https://heartfelt-pasca-e8fa70.netlify.app/
 
 To run locally clone the repo and run:
+
 npm i
+
 npm run dev
