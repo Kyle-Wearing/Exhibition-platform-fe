@@ -51,9 +51,14 @@ export function Collection() {
       <h1 style={{ textAlign: "center" }}>{collectionName}</h1>
       {collection.length ? (
         <ul>
-          {collection.map((exhibition) => {
+          {collection.map((exhibition, index) => {
             return (
-              <CollectionCard key={exhibition.id} exhibition={exhibition} />
+              <CollectionCard
+                key={exhibition.id}
+                exhibition={exhibition}
+                setCollection={setCollection}
+                index={index}
+              />
             );
           })}
         </ul>
