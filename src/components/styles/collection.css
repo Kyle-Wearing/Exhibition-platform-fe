@@ -1,0 +1,32 @@
+.collection-container {
+  margin: 2rem auto;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.collection-header {
+  font-size: 24px;
+  text-align: center;
+  margin: 0 auto;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.collection-grid {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.empty-message {
+  text-align: center;
+  color: black;
+  font-style: italic;
+  margin-top: 2rem;
+}

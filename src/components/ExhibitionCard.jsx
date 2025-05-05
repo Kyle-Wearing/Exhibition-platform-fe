@@ -66,6 +66,7 @@ export function ExhibitionCard({ exhibition, collections }) {
       {menuOpen ? (
         <div className="dropdown-menu" id="dropdown-menu" role="menu">
           <form
+            role="menuitem"
             onSubmit={handleSubmit}
             onChange={() => {
               setError("");

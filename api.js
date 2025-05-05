@@ -135,6 +135,7 @@ export function addExhibitionToCollection(
   api,
   exhibitionId
 ) {
+  console.log(exhibitionId);
   return backEnd
     .post(`/collections/${collectionId}`, {
       user_id: userId,
@@ -142,7 +143,7 @@ export function addExhibitionToCollection(
       exhibition_id: exhibitionId,
     })
     .then((response) => {
-      return response.data.status;
+      return response.status;
     })
     .catch((err) => {
       console.log("addToCollection", err);

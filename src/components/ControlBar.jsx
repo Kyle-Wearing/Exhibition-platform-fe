@@ -17,7 +17,9 @@ export function ControlBar({ searchParams, setSearchParams, isLoading }) {
   return (
     <div className="control-bar">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="search" title="search"></label>
+        <label htmlFor="search" title="search">
+          Search
+        </label>
         <input
           value={searchTerm}
           id="search"
