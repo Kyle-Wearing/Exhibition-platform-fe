@@ -75,3 +75,21 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+.remove-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background: darkred;
+}

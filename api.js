@@ -149,3 +149,17 @@ export function addExhibitionToCollection(
       return err.response.status;
     });
 }
+
+export function removeFromCollection(collection_id, exhibition_id) {
+  return backEnd
+    .post(`/collections`, {
+      exhibition_id: exhibition_id,
+      collection_id: collection_id,
+    })
+    .then((response) => {
+      return response.data.success;
+    })
+    .catch((err) => {
+      console.log("removeFromCollection", err);
+    });
+}
